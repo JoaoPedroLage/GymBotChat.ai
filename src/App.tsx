@@ -227,7 +227,7 @@ function Home() {
             {/* Coluna Esquerda: Logo/Bot do GymBot */}
             <div className="flex items-center gap-5 font-bold text-xl tracking-tight">
               <Bot className="text-violet-500" />
-              <span>GymBotChat<span className="text-violet-500">.ai</span></span>
+              <span>BrandaoGymBotChat<span className="text-violet-500">.ai</span></span>
             </div>
 
             {/* Coluna Centro: Logo centralizada */}
