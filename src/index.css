@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --color-background: #050505;
+  --color-surface: #0F1115;
+  
+  /* Garantindo que as cores customizadas funcionem */
+  --color-background-rgb: 5 5 5;
+  --color-surface-rgb: 15 17 21;
+}
+
+/* Reset básico para garantir fundo escuro em tudo */
+body {
+  background-color: #050505;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
