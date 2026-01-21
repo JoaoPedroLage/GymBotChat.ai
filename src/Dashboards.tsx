@@ -139,7 +139,6 @@ export const CompetitorDashboard = () => {
              <p className="text-sm text-gray-400">
                A média de preço das grandes redes subiu para <strong className="text-white">R$ 149,90</strong>. 
                Se sua academia cobra menos que isso e não tem automação, você está deixando dinheiro na mesa. 
-               O Chatbot Enterprise custa menos que 2 alunos novos desse ticket.
              </p>
            </div>
         </div>
