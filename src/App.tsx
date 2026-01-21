@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 // ADICIONADO: BarChart3 e Search para os novos botões
-import { Check, X, Server, CloudLightning, ShieldCheck, ChevronRight, ChevronLeft, Bot, Info, BarChart3, Search } from 'lucide-react';
+import { Menu, Check, X, Server, CloudLightning, ShieldCheck, ChevronRight, ChevronLeft, Bot, Info, BarChart3, Search } from 'lucide-react';
 import logo from '../public/logo.png';
 
 // --- TIPOS ---
@@ -137,8 +137,8 @@ const ProposalCard = ({ data }: { data: Proposal }) => {
         {/* Cabeçalho */}
         <div className="flex justify-between items-start mb-6">
           <div className={`p-3 rounded-2xl ${data.color === 'blue' ? 'bg-blue-500/10' :
-              data.color === 'violet' ? 'bg-violet-500/10' :
-                'bg-emerald-500/10'
+            data.color === 'violet' ? 'bg-violet-500/10' :
+              'bg-emerald-500/10'
             }`}>
             {data.icon}
           </div>
@@ -161,8 +161,8 @@ const ProposalCard = ({ data }: { data: Proposal }) => {
           {data.features.map((feat: string, idx: number) => (
             <div key={idx} className="flex items-start gap-3">
               <div className={`mt-1 w-1.5 h-1.5 rounded-full shrink-0 ${data.color === 'blue' ? 'bg-blue-400' :
-                  data.color === 'violet' ? 'bg-violet-400' :
-                    'bg-emerald-400'
+                data.color === 'violet' ? 'bg-violet-400' :
+                  'bg-emerald-400'
                 }`} />
               <span className="text-sm text-gray-200 font-medium">{feat}</span>
             </div>
@@ -193,8 +193,8 @@ const ProposalCard = ({ data }: { data: Proposal }) => {
           <button
             onClick={() => navigate(`/details/${data.id}`)}
             className={`w-full py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group ${isRec
-                ? 'bg-violet-600 hover:bg-blue-600 text-white shadow-lg shadow-violet-900/20'
-                : 'bg-white text-black hover:bg-blue-600 hover:text-white'
+              ? 'bg-violet-600 hover:bg-blue-600 text-white shadow-lg shadow-violet-900/20'
+              : 'bg-white text-black hover:bg-blue-600 hover:text-white'
               }`}>
             Mostrar detalhes do Plano
             <ChevronRight className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${!isRec && 'text-black'}`} />
@@ -209,6 +209,8 @@ const ProposalCard = ({ data }: { data: Proposal }) => {
 
 function Home() {
   const [currentIndex, setCurrentIndex] = useState(1);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const navigate = useNavigate(); // Hook para navegação no Header
 
   const nextSlide = () => {
@@ -222,9 +224,29 @@ function Home() {
   return (
     <div className="min-h-screen bg-background text-white font-sans selection:bg-violet-500/30">
       <nav className="fixed w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="grid grid-cols-3 items-center">
-            {/* Coluna Esquerda: Logo/Bot do GymBot */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2 sm:py-4">
+
+          {/* --- VERSÃO MOBILE (Flex: Logo + Hamburger) --- */}
+          <div className="flex md:hidden justify-between items-center h-16">
+            {/* Identidade Visual Mobile */}
+            <div className="flex items-center gap-3">
+              <img src={logo} className="w-10 h-10 rounded-full" alt="Logo" />
+              <span className="font-bold text-lg tracking-tight">GymBot<span className="text-violet-500">.ai</span></span>
+            </div>
+
+            {/* Botão Menu Hamburger */}
+            <button
+              className="p-2 text-gray-300 hover:text-white active:scale-90 transition-transform rounded-lg hover:bg-white/5"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* --- VERSÃO DESKTOP (Sua configuração de Grid 3 Colunas) --- */}
+          <div className="hidden md:grid grid-cols-3 items-center">
+
+            {/* Coluna Esquerda: Texto BrandaoGymBotChat */}
             <div className="flex items-center gap-5 font-bold text-xl tracking-tight">
               <Bot className="text-violet-500" />
               <span>BrandaoGymBotChat<span className="text-violet-500">.ai</span></span>
@@ -232,14 +254,14 @@ function Home() {
 
             {/* Coluna Centro: Logo centralizada */}
             <div className="flex justify-center">
-              <img src={logo} width={'80px'} height={'80px'} alt="Logo" />
+              <img src={logo} width={'80px'} height={'80px'} className="rounded-full" alt="Logo" />
             </div>
 
             {/* Coluna Direita: Botões de Dashboard */}
             <div className="flex items-center justify-end gap-4">
               <button
                 onClick={() => navigate('/market-data')}
-                className="hidden md:flex items-center gap-2 text-sm  bg-violet-600 text-white hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-violet-800 border border-transparent hover:border-white/10"
+                className="flex items-center gap-2 text-sm bg-violet-600 text-white hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-violet-800 border border-transparent hover:border-white/10"
               >
                 <BarChart3 className="w-4 h-4" />
                 Raio-X do Mercado
@@ -253,9 +275,53 @@ function Home() {
                 Espião de Preços
               </button>
             </div>
+
           </div>
         </div>
       </nav>
+
+      {/* BLOCO DO MENU MOBILE */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl pt-28 px-6 md:hidden"
+          >
+            <div className="flex flex-col gap-4">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">Ferramentas</p>
+
+              <button
+                onClick={() => { navigate('/market-data'); setIsMobileMenuOpen(false); }}
+                className="flex items-center justify-between w-full p-4 rounded-xl bg-surface border border-white/5 active:bg-violet-600/20 transition-colors"
+              >
+                <span className="flex items-center gap-3 font-medium text-lg">
+                  <div className="p-2 bg-violet-500/10 rounded-lg">
+                    <BarChart3 className="text-violet-400 w-5 h-5" />
+                  </div>
+                  Raio-X do Mercado
+                </span>
+                <ChevronRight className="text-gray-600" />
+              </button>
+
+              <button
+                onClick={() => { navigate('/competitors'); setIsMobileMenuOpen(false); }}
+                className="flex items-center justify-between w-full p-4 rounded-xl bg-surface border border-white/5 active:bg-violet-600/20 transition-colors"
+              >
+                <span className="flex items-center gap-3 font-medium text-lg">
+                  <div className="p-2 bg-emerald-500/10 rounded-lg">
+                    <Search className="text-emerald-400 w-5 h-5" />
+                  </div>
+                  Espião de Preços
+                </span>
+                <ChevronRight className="text-gray-600" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center">
         <div className="text-center max-w-3xl mx-auto mb-16">
