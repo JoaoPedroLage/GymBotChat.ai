@@ -324,7 +324,7 @@ function Home() {
       </AnimatePresence>
 
       <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs text-violet-300 mb-6 font-medium">
             <Info className="w-3 h-3" />
             Planos atualizados para a Tecnologia 2026
@@ -332,7 +332,7 @@ function Home() {
           <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight bg-linear-to-b from-white to-gray-400 bg-clip-text text-transparent">
             Quanto custa automatizar<br /> sua academia?
           </h1>
-          <p className="text-lg text-gray-400 mb-8 max-w-xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-400 max-w-xl mx-auto leading-relaxed">
             Do atendimento básico à inteligência artificial que vende sozinha.
             Compare as opções e veja qual se encaixa no seu momento.
           </p>
@@ -340,16 +340,6 @@ function Home() {
 
         {/* Carousel Container */}
         <div className="relative w-full max-w-6xl mx-auto">
-
-          {/* Mobile Controls */}
-          <div className="flex justify-center gap-4 mb-8 md:hidden">
-            <button onClick={prevSlide} className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition-all">
-              <ChevronLeft />
-            </button>
-            <button onClick={nextSlide} className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition-all">
-              <ChevronRight />
-            </button>
-          </div>
 
           {/* Desktop Grid */}
           <div className="hidden md:grid md:grid-cols-3 gap-6 items-stretch">
@@ -382,6 +372,16 @@ function Home() {
                 />
               ))}
             </div>
+          </div>
+
+          {/* Mobile Controls */}
+          <div className="flex justify-center gap-4 mb-8 mt-6 md:hidden">
+            <button onClick={prevSlide} className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition-all">
+              <ChevronLeft />
+            </button>
+            <button onClick={nextSlide} className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition-all">
+              <ChevronRight />
+            </button>
           </div>
 
         </div>
